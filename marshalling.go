@@ -228,7 +228,13 @@ func deleteCity(c *gin.Context) {
 func queryCountryByContinet(c *gin.Context) {
 	c.Header("Content-Type", "application/json")
 
-	rows, err := db.Query("SELECT id, name, population, area FROM country WHERE continent_id IN (SELECT id FROM continent WHERE name = $1) ORDER BY name")
+	var newCountry country_create
+	if err := c.BindJSON(&newCountry); err != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err})
+		return
+	}
+
+	rows, err := db.Query("SELECT id, name, population, area FROM country WHERE continent_id IN (SELECT id FROM continent WHERE name = $1) ORDER BY name", newCountry.ContinentName)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -237,7 +243,7 @@ func queryCountryByContinet(c *gin.Context) {
 	var countries []country_create
 	for rows.Next() {
 		var a country_create
-		err := rows.Scan(&a.ContinentName)
+		err := rows.Scan(&a.Id, &a.Name, &a.Population, &a.Area)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -254,7 +260,13 @@ func queryCountryByContinet(c *gin.Context) {
 func queryCityByContinet(c *gin.Context) {
 	c.Header("Content-Type", "application/json")
 
-	rows, err := db.Query("SELECT id, name, population, area, is_capital FROM city WHERE country_id IN (SELECT id FROM country WHERE continen_id = (SELECT id FROM continent WHERE name = $1) ) ORDER BY name")
+	var newCountry country_create
+	if err := c.BindJSON(&newCountry); err != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err})
+		return
+	}
+
+	rows, err := db.Query("SELECT id, name, population, area, is_capital FROM city WHERE country_id IN (SELECT id FROM country WHERE continent_id = (SELECT id FROM continent WHERE name = $1) ) ORDER BY name", newCountry.ContinentName)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -280,13 +292,13 @@ func queryCityByContinet(c *gin.Context) {
 func queryCityByCountry(c *gin.Context) {
 	c.Header("Content-Type", "application/json")
 
-	var newCity city
+	var newCity city_create
 	if err := c.BindJSON(&newCity); err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err})
 		return
 	}
 
-	rows, err := db.Query("SELECT id, name, population, area, is_capital FROM city WHERE country_id IN (SELECT id FROM country WHERE name = $1) ORDER BY name")
+	rows, err := db.Query("SELECT id, name, population, area, is_capital FROM city WHERE country_id IN (SELECT id FROM country WHERE name = $1) ORDER BY name", newCity.CountryName)
 	if err != nil {
 		log.Fatal(err)
 	}
