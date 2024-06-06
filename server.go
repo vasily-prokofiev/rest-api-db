@@ -30,9 +30,9 @@ func main() {
 	router.PUT("/city/upd", updateCity)
 	router.DELETE("/city/del", deleteCity)
 
-	router.GET("/query/country_by_continet", queryCountryByContinet)
+	router.GET("/query/country_by_continent", queryCountryByContinet)
 	router.GET("/query/city_by_country", queryCityByCountry)
-	router.GET("/query/city_by_continet", queryCityByContinet)
+	router.GET("/query/city_by_continent", queryCityByContinet)
 
 	router.Run("localhost:8080")
 }
