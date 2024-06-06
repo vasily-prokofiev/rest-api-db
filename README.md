@@ -44,9 +44,10 @@ Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-
 ## Access the app 
 
 Application suppose to access Postgress DB server (cofigured locally) with credential 
-User/Pwd: postgres/postgres
+User/Pwd: postgres/toor4nsn
+
 DB: restapi
-COnfiguration Script: init_db.sql <TODO>
+Configuration Script: init_db.sql
 
 The App has a few Endpoints
 

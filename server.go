@@ -13,7 +13,7 @@ var db *sql.DB
 func main() {
 
 	var err error
-	db, err = sql.Open("postgres", "postgres://postgres:postgres@localhost/restapi?sslmode=disable")
+	db, err = sql.Open("postgres", "postgres://postgres:toor4nsn@localhost/restapi?sslmode=disable")
 	if err != nil {
 		log.Fatal(err)
 	}
