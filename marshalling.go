@@ -8,11 +8,15 @@ import (
 	_ "github.com/lib/pq"
 )
 
+// the Continent table marhalling (fetching)
+// Id is a Primary Key, Name is unique
 type continent struct {
 	Id   string `json:"id"`
 	Name string `json:"name"`
 }
 
+// the Country table marhalling (fetching)
+// Id is a Primary key, Name is unique
 type country struct {
 	Id          string  `json:"id"`
 	Name        string  `json:"name"`
@@ -21,6 +25,8 @@ type country struct {
 	Area        float64 `json:area`
 }
 
+// the Country table marhalling (creating new Country)
+// The ContinentName use to Lookup for ContinentId
 type country_create struct {
 	ContinentName string  `json:"continent_name"`
 	Id            string  `json:"id"`
@@ -29,6 +35,8 @@ type country_create struct {
 	Area          float64 `json:area`
 }
 
+// the City table marhalling (fetching)
+// Id is a Primary key, Name is unique
 type city struct {
 	CountryId  string  `json:"country_id"`
 	Id         string  `json:"id"`
@@ -38,6 +46,8 @@ type city struct {
 	IsCapital  bool    `json:"is_capital"`
 }
 
+// the City table marhalling (creating new City)
+// The CountrytName use to Lookup for CountryId
 type city_create struct {
 	CountryName string  `json:"country_name"`
 	Id          string  `json:"id"`
@@ -47,10 +57,11 @@ type city_create struct {
 	IsCapital   bool    `json:"is_capital"`
 }
 
+// list all Countries from DB, ordered by Name
 func listCountries(c *gin.Context) {
 	c.Header("Content-Type", "application/json")
 
-	rows, err := db.Query("SELECT id, name, population, area, continent_id FROM country")
+	rows, err := db.Query("SELECT id, name, population, area, continent_id FROM country ORDER BY name")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -73,6 +84,7 @@ func listCountries(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, countries)
 }
 
+// create new Country, Continent Name (unique string) uses as lookup entry to bind with Continent
 func createCountry(c *gin.Context) {
 
 	var newCountry country_create
@@ -94,6 +106,7 @@ func createCountry(c *gin.Context) {
 	c.JSON(http.StatusCreated, newCountry)
 }
 
+// update exiting Country, Id (unique integer) uses as the Country key,  Continent relationship cannot be updated
 func updateCountry(c *gin.Context) {
 
 	var newCountry country
@@ -115,6 +128,7 @@ func updateCountry(c *gin.Context) {
 	c.JSON(http.StatusCreated, newCountry)
 }
 
+// delete exiting Country, Id (unique integer) uses as the Country key
 func deleteCountry(c *gin.Context) {
 
 	var newCountry country
@@ -136,10 +150,11 @@ func deleteCountry(c *gin.Context) {
 	c.JSON(http.StatusCreated, newCountry)
 }
 
+// list all Cities from DB, ordered by Name
 func listCities(c *gin.Context) {
 	c.Header("Content-Type", "application/json")
 
-	rows, err := db.Query("SELECT id, name, population, area, is_capital FROM city")
+	rows, err := db.Query("SELECT id, country_id, name, population, area, is_capital FROM city ORDER BY name")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -148,7 +163,7 @@ func listCities(c *gin.Context) {
 	var cities []city
 	for rows.Next() {
 		var a city
-		err := rows.Scan(&a.Id, &a.Name, &a.Population, &a.Area, &a.IsCapital)
+		err := rows.Scan(&a.Id, &a.CountryId, &a.Name, &a.Population, &a.Area, &a.IsCapital)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -162,6 +177,7 @@ func listCities(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, cities)
 }
 
+// create new City, Country Name (unique string) uses as lookup entry to bind with Countries
 func createCity(c *gin.Context) {
 
 	var newCity city_create
@@ -183,6 +199,7 @@ func createCity(c *gin.Context) {
 	c.JSON(http.StatusCreated, newCity)
 }
 
+// update exiting City, Id (unique integer) uses as the Country key, Country relationship cannot be updated
 func updateCity(c *gin.Context) {
 
 	var newCity city
@@ -204,6 +221,7 @@ func updateCity(c *gin.Context) {
 	c.JSON(http.StatusCreated, newCity)
 }
 
+// delete exiting City, Id (unique integer) uses as the City key
 func deleteCity(c *gin.Context) {
 
 	var newCity city
@@ -225,6 +243,7 @@ func deleteCity(c *gin.Context) {
 	c.JSON(http.StatusCreated, newCity)
 }
 
+// fech Countries by Continent Name, exposing all Countries belonging to Continent, ordered by Name
 func queryCountryByContinet(c *gin.Context) {
 	c.Header("Content-Type", "application/json")
 
@@ -257,6 +276,7 @@ func queryCountryByContinet(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, countries)
 }
 
+// fech Cities by Continent Name, exposing all Cities belonging to Continent, ordered by Name
 func queryCityByContinet(c *gin.Context) {
 	c.Header("Content-Type", "application/json")
 
@@ -289,6 +309,7 @@ func queryCityByContinet(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, cities)
 }
 
+// fech Cities by Country Name, exposing all Cities belonging to Country, ordered by Name
 func queryCityByCountry(c *gin.Context) {
 	c.Header("Content-Type", "application/json")
 
