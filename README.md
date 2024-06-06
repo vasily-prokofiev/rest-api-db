@@ -38,7 +38,7 @@ go run .
 [GIN-debug] GET    /query/city_by_continent  --> main.queryCityByContinet (3 handlers)
 [GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
 Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
-[GIN-debug] Listening and serving HTTP on localhost:8080
+[GIN-debug] Listening and serving HTTP on localhost:8080/v1
 ...
 
 ## Access the app 
@@ -50,7 +50,7 @@ COnfiguration Script: init_db.sql <TODO>
 
 The App has a few Endpoints
 
-All api endpoints are prefixed with `/api/v1` <TODO>
+All api endpoints are prefixed with API `/v1`
 
 To reach any endpoint use Postman application  (https://www.postman.com/downloads/)
 Data submited in JSON format (Body/Raw, JSON in Postman GUI)
@@ -65,7 +65,7 @@ Continent DB contains 7 entities,
 restapi=# select * from continent;
  id |    name
 ----+------------
-  1 | Africa
+  1 | Africa  
   2 | Asia
   3 | Antarctica
   4 | Australia
@@ -84,11 +84,11 @@ restapi=# select * from country;
 ----+--------------+-------------+------------+--------
 
 1.1 Get a List of Countries
-localhost:8080/country/list
+localhost:8080/v1/country/list
 GET("/country/list")
 
 1.2 Create a New Country within a Continent
-localhost:8080/country/create
+localhost:8080/v1/country/create
 Example of IE 
 POST
     {
@@ -112,7 +112,7 @@ restapi=# select * from city;
 ----+------------+----------+------------+--------+------------
 
 2.1 Get a List of Cities
-localhost:8080/city/list
+localhost:8080/v1/city/list
 GET("/city/list")
 
 2.1 Create a City 
@@ -125,21 +125,21 @@ DELETE("/city/del")
 3. Data Access Entities:
 
 3.1 GET("/query/country_by_continent")
-localhost:8080/query/city_by_country
+localhost:8080/v1/query/city_by_country
 GET
     {
         "continent_name": "Europa"
     }
 
 3.2 GET("/query/city_by_country")
-localhost:8080/query/city_by_country
+localhost:8080/v1/query/city_by_country
 GET
     {
         "country_name": "Finland"
     }
 
 3.3 GET("/query/city_by_continent")
-localhost:8080/query/city_by_country
+localhost:8080/v1/query/city_by_country
 GET
     {
         "continent_name": "Europa"

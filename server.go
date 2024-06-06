@@ -20,19 +20,22 @@ func main() {
 
 	router := gin.Default()
 
-	router.GET("/country/list", listCountries)
-	router.POST("/country/create", createCountry)
-	router.PUT("/country/upd", updateCountry)
-	router.DELETE("/country/del", deleteCountry)
+	// use specific version of interfaces
+	apiV1 := router.Group("/v1")
+	{
+		apiV1.GET("/country/list", listCountries)
+		apiV1.POST("/country/create", createCountry)
+		apiV1.PUT("/country/upd", updateCountry)
+		apiV1.DELETE("/country/del", deleteCountry)
 
-	router.GET("/city/list", listCities)
-	router.POST("/city/create", createCity)
-	router.PUT("/city/upd", updateCity)
-	router.DELETE("/city/del", deleteCity)
+		apiV1.GET("/city/list", listCities)
+		apiV1.POST("/city/create", createCity)
+		apiV1.PUT("/city/upd", updateCity)
+		apiV1.DELETE("/city/del", deleteCity)
 
-	router.GET("/query/country_by_continent", queryCountryByContinet)
-	router.GET("/query/city_by_country", queryCityByCountry)
-	router.GET("/query/city_by_continent", queryCityByContinet)
-
+		apiV1.GET("/query/country_by_continent", queryCountryByContinet)
+		apiV1.GET("/query/city_by_country", queryCityByCountry)
+		apiV1.GET("/query/city_by_continent", queryCityByContinet)
+	}
 	router.Run("localhost:8080")
 }
