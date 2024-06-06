@@ -18,21 +18,21 @@ type continent struct {
 // the Country table marhalling (fetching)
 // Id is a Primary key, Name is unique
 type country struct {
-	Id          string  `json:"id"`
-	Name        string  `json:"name"`
-	ContinentId string  `json:"continent_id"`
-	Population  float64 `json:population`
-	Area        float64 `json:area`
+	Id          string `json:"id"`
+	Name        string `json:"name"`
+	ContinentId string `json:"continent_id"`
+	Population  int64  `json:"population"`
+	Area        int64  `json:"area"`
 }
 
 // the Country table marhalling (creating new Country)
 // The ContinentName use to Lookup for ContinentId
 type country_create struct {
-	ContinentName string  `json:"continent_name"`
-	Id            string  `json:"id"`
-	Name          string  `json:"name"`
-	Population    float64 `json:population`
-	Area          float64 `json:area`
+	ContinentName string `json:"continent_name"`
+	Id            string `json:"id"`
+	Name          string `json:"name"`
+	Population    int64  `json:"population"`
+	Area          int64  `json:"area"`
 }
 
 // the City table marhalling (fetching)
