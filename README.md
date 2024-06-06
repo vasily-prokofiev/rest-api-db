@@ -25,20 +25,20 @@ go run .
  - using env:   export GIN_MODE=release
  - using code:  gin.SetMode(gin.ReleaseMode)
 
-[GIN-debug] GET    /country/list             --> main.listCountries (3 handlers)
-[GIN-debug] POST   /country/create           --> main.createCountry (3 handlers)
-[GIN-debug] PUT    /country/upd              --> main.updateCountry (3 handlers)
-[GIN-debug] DELETE /country/del              --> main.deleteCountry (3 handlers)
-[GIN-debug] GET    /city/list                --> main.listCities (3 handlers)
-[GIN-debug] POST   /city/create              --> main.createCity (3 handlers)
-[GIN-debug] PUT    /city/upd                 --> main.updateCity (3 handlers)
-[GIN-debug] DELETE /city/del                 --> main.deleteCity (3 handlers)
-[GIN-debug] GET    /query/country_by_continent --> main.queryCountryByContinet (3 handlers)
-[GIN-debug] GET    /query/city_by_country    --> main.queryCityByCountry (3 handlers)
-[GIN-debug] GET    /query/city_by_continent  --> main.queryCityByContinet (3 handlers)
+[GIN-debug] GET    /v1/country/list          --> main.listCountries (3 handlers)
+[GIN-debug] POST   /v1/country/create        --> main.createCountry (3 handlers)
+[GIN-debug] PUT    /v1/country/upd           --> main.updateCountry (3 handlers)
+[GIN-debug] DELETE /v1/country/del           --> main.deleteCountry (3 handlers)
+[GIN-debug] GET    /v1/city/list             --> main.listCities (3 handlers)
+[GIN-debug] POST   /v1/city/create           --> main.createCity (3 handlers)
+[GIN-debug] PUT    /v1/city/upd              --> main.updateCity (3 handlers)
+[GIN-debug] DELETE /v1/city/del              --> main.deleteCity (3 handlers)
+[GIN-debug] GET    /v1/query/country_by_continent --> main.queryCountryByContinet (3 handlers)
+[GIN-debug] GET    /v1/query/city_by_country --> main.queryCityByCountry (3 handlers)
+[GIN-debug] GET    /v1/query/city_by_continent --> main.queryCityByContinet (3 handlers)
 [GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
 Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
-[GIN-debug] Listening and serving HTTP on localhost:8080/v1
+[GIN-debug] Listening and serving HTTP on localhost:8080
 ...
 
 ## Access the app 
@@ -119,8 +119,6 @@ GET("/city/list")
 POST("/city/create")
 PUT("/city/upd")
 DELETE("/city/del")
-
-
 
 3. Data Access Entities:
 
