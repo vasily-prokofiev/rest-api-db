@@ -148,5 +148,14 @@ GET
 
 ## Deploy as Docker Container
 
-Solution uses two containers (Pstgress DB + REST API application) <TO DO>
+Solution uses two containers (Pstgress DB + REST API application)
 
+1. Images deployed at: 
+https://hub.docker.com/repository/docker/wasop/my_sandbox/general
+
+Use command to fetch later versions -
+docker pull wasop/my_sandbox:latest
+
+2. To start image 
+
+docker run -p 127.0.0.1:8080:8080 rest-api-db-server:latest
