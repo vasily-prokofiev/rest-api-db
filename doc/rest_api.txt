@@ -1,0 +1,76 @@
+C:\Users\prokofie\eclipse-workspace-go\rest-api\src\rest_api>
+
+go mod init example.com/rest-api
+go get github.com/gorilla/mux@latest
+go run main.go
+
+localhost:8080
+
+localhost:8080/api/v1
+
+
+go run .
+
+localhost:8080/api/v1/books/authors/Tolkien
+localhost:8080/api/v1/books/book-name/One
+localhost:8080/api/v1/books/book-name/T
+localhost:8080/api/v1/book?Title=Test
+
+localhost:8080/api/v1/country/?country_id=3&country_name=Test
+localhost:8080/api/v1/country/?CountryID=4&Name=Test1
+localhost:8080/api/v1/country/list/
+
+
+country add
+country delete by name
+country update by name
+
+countries list
+countries list by continent name
+
+
+city add
+city delete by name
+city update by name
+city list by country
+city list by continent
+
+
+"github.com/moficodes/bookdata/api/loader"
+"github.com/vasily-prokofiev/rest/api/loader"
+
+
+server
+
+	api.HandleFunc("/country/update/", updateCountry).Methods(http.MethodPost)
+	api.HandleFunc("/country/delete/", deleteCountry).Methods(http.MethodPost)
+	api.HandleFunc("/country/continents/{continentname}", listCountriesByContinentName).Methods(http.MethodGet)
+	api.HandleFunc("/country/cities/{countryname}", listCitiesByCountryName).Methods(http.MethodGet)
+
+	api.HandleFunc("/cities/", createCountry).Methods(http.MethodPost)
+	api.HandleFunc("/cities/update/", updateCountry).Methods(http.MethodPost)
+	api.HandleFunc("/cities/delete/", deleteCountry).Methods(http.MethodPost)
+	api.HandleFunc("/cities/country/{countryname}", listCountriesByContinentName).Methods(http.MethodGet)
+	api.HandleFunc("/country/cities/{countryname}", listCitiesByCountryName).Methods(http.MethodGet)
+
+
+type CountryData struct {
+	CountryID  string  `json:"country_id"`
+	Name       string  `json:"country_name"`
+	Population int     `json:"population"`
+	Area       float64 `json:"area"`
+}
+
+type CityData struct {
+	CityID     string `json:"city_id"`
+	CountryID  string `json:"country_id"`
+	Name       string `json:"city_name"`
+	Population int    `json:"population"`
+	isCapital  int    `json:"is_capital"`
+}
+
+
+
+DOCKER
+
+docker build --rm -t rest-api:alpha .

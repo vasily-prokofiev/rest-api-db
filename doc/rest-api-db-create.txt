@@ -1,0 +1,92 @@
+SELECT oid from pg_database where datname = 'restapi';
+
+cd C:\Users\prokofie\eclipse-workspace-go\db\rest-api-db
+go run .
+
+
+create database restapi
+
+CREATE TABLE continents (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255)
+    );
+
+CREATE TABLE countries (
+    id SERIAL PRIMARY KEY,
+    continent_id INTEGER,
+    name VARCHAR(255)
+    );
+
+CREATE TABLE cities (
+    id SERIAL PRIMARY KEY,
+    country_id INTEGER,
+    name VARCHAR(255),
+
+
+    );
+
+
+localhost:8080/albums?id=1&title=test&artist=art test&price=59.99
+
+INSERT INTO albums (id, title, artist, price) VALUES (1, "test", "art test", 59)
+
+INSERT INTO albums VALUES(1, 'test', 'art test', 59);
+
+INSERT INTO country (name, population, area) VALUES('finland', 5000000, 340000);
+SELECT * FROM country;
+
+INSERT INTO city (country_id, name, population, area, is_capital) VALUES(1, 'Helsinki', 5000000, 340000, true);
+INSERT INTO city (country_id, name, population, area, is_capital) VALUES(1, 'Espoo', 5000000, 340000, 'true');
+UPDATE city SET is_capital = false WHERE id = 2;
+SELECT * FROM city;
+
+INSERT INTO city (country_id, name, population, area, is_capital) VALUES(6, 'Vilnus', 40000, 1000, 'true');
+
+'
+INSERT INTO city (country_id, name, population, area, is_capital) VALUES((SELECT id from country WHERE name = 'finland'), 'Turku', 5000000, 340000, 'false');
+
+
+localhost:8080/country?id='3'&name='norway'&continent_id='1'&population=10000000&area=50000
+
+	Id          string  `json:"id"`
+	Name        string  `json:"name"`
+	ContinentId string  `json:"continent_id"`
+	Population  float64 `json:"population"`
+	Area        float64 `json:"area"
+
+
+    {
+        "id": "3",
+        "name": "norway",
+        "continent_id": "",
+        "population": 5000000,
+        "area": 340000
+    }
+
+    {
+        "id": "0",
+        "name": "Lithuania",
+        "continent_id": "1",
+        "population": 1000000,
+        "area": 5000
+    }
+
+UPDATE country SET name = 'test', population = 10, area = 5 WHERE id = 3;
+
+
+ Asia, Africa, North America, South America, Antarctica, Europe, and Australia
+
+DELETE FROM continent;
+INSERT INTO continent (id, name) VALUES(1, 'Africa');
+INSERT INTO continent (id, name) VALUES(2, 'Asia');
+INSERT INTO continent (id, name) VALUES(3, 'Antarctica');
+INSERT INTO continent (id, name) VALUES(4, 'Australia');
+INSERT INTO continent (id, name) VALUES(5, 'Europa');
+INSERT INTO continent (id, name) VALUES(6, 'N.America');
+INSERT INTO continent (id, name) VALUES(7, 'S.America');
+SELECT * FROM continent;
+
+SELECT id, name, population, area FROM country WHERE continent_id = 5 ORDER BY name;
+SELECT id, name, population, area FROM country WHERE continent_id = (SELECT id FROM continent WHERE name = 'Europa') ORDER BY name;
+
+SELECT id, name, population, area, is_capital FROM city WHERE country_id IN (SELECT id FROM country WHERE continent_id = (SELECT id FROM continent WHERE name = 'Europa') ) ORDER BY name;

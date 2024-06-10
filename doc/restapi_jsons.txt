@@ -1,0 +1,55 @@
+https://github.com/vasily-prokofiev/rest-api-db
+
+localhost:8080/v1/country/create
+POST
+    {
+        "continent_name": "Europa",
+        "name": "Lithuania",
+        "population": 1000000,
+        "area": 5000
+    }
+
+
+localhost:8080/v1/country/list
+
+
+    {
+        "id": "1",
+        "name": "finland",
+        "continent_id": "",
+        "Population": 5000000,
+        "Area": 340000
+    }
+
+
+localhost:8080/v1/country/del
+DELETE
+    {
+        "id": "8"
+    }
+
+
+localhost:8080/v1/country/upd
+PUT
+    {
+        "id": "1",
+        "name": "finland_upd",
+        "continent_id": "",
+        "Population": 5000000,
+        "Area": 340000
+    }
+
+
+    {
+        "id": "8"
+    }
+
+
+localhost:8080/v1/query/city_by_country
+GET
+    {
+        "country_name": "sweden"
+    }
+
+
+localhost:8080/v1/query/cointry_by_continent

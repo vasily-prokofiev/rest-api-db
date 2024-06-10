@@ -1,0 +1,49 @@
+docker run --name restapi -e POSTGRES_PASSWORD=toor4nsn -d postgres
+
+127.0.0.1:8080/v1/country/list
+
+docker run --name rest-api-db  –network=host
+docker run -d --name rest-api-db-server --net=host
+docker container run -d --name rest-api-db-server --net=host
+docker run --name rest-api-db-server
+
+docker run -p 127.0.0.1:8000:8000 rest-api-db-server:latest
+
+
+
+networks:
+  appnet: null
+  hostnet:
+    external:
+      name: host
+
+extra_hosts:
+    - "host.docker.internal:host-gateway"
+
+
+OK
+
+docker image tag rest-api-db-server:latest TARGET_IMAGE[:TAG]
+
+
+cd C:\Users\prokofie\eclipse-workspace-go\db\rest-api-db
+
+docker compose up
+
+docker run -p 8080:8080 rest-api-db-server:latest
+
+
+
+PUSH
+
+docker login -u wasop
+
+docker tag rest-api-db-server wasop/rest-api-db-server
+
+docker push wasop/my_sandbox
+
+
+DEMO
+
+docker run -p 8080:8080 rest-api-db-server:latest
+docker compose up
